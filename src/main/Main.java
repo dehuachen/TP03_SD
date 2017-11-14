@@ -2,6 +2,8 @@ package main;
 
 import template.Device;
 
+import java.util.ArrayList;
+
 /**
  * Created by chendehua on 2017/11/14.
  */
@@ -50,6 +52,37 @@ public class Main {
         System.out.println(str);
     }
 
+    public static void monte_carlo(int n) {
+
+        // prepare environment
+        boolean[] inout = new boolean[n];
+        ArrayList<Point> points = new ArrayList<>();
+        double x,y;
+
+        for (int i = 0; i < n; i++) {
+            x = Math.random();
+            y = Math.random();
+
+            points.add(new Point(x,y));
+        }
+
+        // evaluate each point
+        for (int i = 0; i < n; i++) {
+            inout[i] = eval(points.get(i));
+        }
+
+        // calculate pi
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (inout[i]) count++;
+        }
+
+        println("pi: " + String.valueOf(4.0*count/n));
+    }
+
+    public static boolean eval(Point point) {
+        return (Math.sqrt(Math.pow(point.x, 2) + Math.pow(point.y, 2))) < 1;
+    }
 
     public static void main(String... args) {
 
@@ -65,7 +98,9 @@ public class Main {
             SHOW_MSG = Boolean.parseBoolean(args[1]);
         }
 
-        startDevices(num_hosts);
+//        startDevices(num_hosts);
+
+        monte_carlo(1000000);
 
     }
 
