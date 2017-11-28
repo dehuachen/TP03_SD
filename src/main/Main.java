@@ -77,7 +77,8 @@ public class Main {
             if (inout[i]) count++;
         }
 
-        println("pi: " + String.valueOf(4.0*count/n));
+        double approximations_pi = 4.0 * count / n;
+        println("pi: " + String.valueOf(approximations_pi));
     }
 
     public static boolean eval(Point point) {

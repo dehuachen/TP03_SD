@@ -30,6 +30,14 @@ public class Device extends Thread implements Callback {
 
     public void abstractRun() {}
 
+    public String getAction(String str) {
+        String[] command = str.split(",", 2);
+
+        String action = command[0];
+
+        return action;
+    }
+
     @Override
     public synchronized void callback(String str) {
         String[] command = str.split(",", 2);
@@ -61,7 +69,7 @@ public class Device extends Thread implements Callback {
         return null;
     }
 
-    private Node getNodeFromMsg(String msg) {
+    public Node getNodeFromMsg(String msg) {
         String[] strings = msg.split(",");
         String hostname = strings[0];
         int port = Integer.parseInt(strings[1]);
@@ -70,7 +78,7 @@ public class Device extends Thread implements Callback {
     }
 
 
-    private String formatMsg(Node node, String type) {
+    public String formatMsg(Node node, String type) {
         return type+","+node.hostname+","+node.port;
     }
 
