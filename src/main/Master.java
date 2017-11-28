@@ -5,6 +5,7 @@ import template.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Created by chendehua on 2017/11/14.
@@ -49,6 +50,12 @@ public class Master extends Device{
         System.out.println("\n============================");
         System.out.println("Approximations of pi: " + String.valueOf(approximations_pi));
         System.out.println("============================\n");
+
+        Scanner s = new Scanner(System.in);
+        System.out.print("\nNumber of point: ");
+        int n = s.nextInt();
+
+        generatePoints(n);
 
     }
 
@@ -120,7 +127,10 @@ public class Master extends Device{
 
     @Override
     public void abstractRun() {
-        generatePoints(1000);
+        Scanner s = new Scanner(System.in);
+        System.out.print("\nNumber of point: ");
+        int n = s.nextInt();
+        generatePoints(n);
     }
 
     public void generatePoints(int n) {
@@ -142,6 +152,20 @@ public class Master extends Device{
 
             answers[i] = -1;
             points.add(new Point(x,y));
+        }
+
+        for (int i = 0; i < requested_nodes.size(); i++) {
+
+            // if there is no more task, put the node into a waiting queue and quit.
+            if (last_point_idx == answers.length) {
+                return;
+            }
+
+            Node node = requested_nodes.remove(0);
+            Point tmp = points.get(last_point_idx);
+            String msg_out = last_point_idx + "," + tmp.x + " " + tmp.y;
+            sendMessage(node, msg_out);
+            last_point_idx++;
         }
     }
 }

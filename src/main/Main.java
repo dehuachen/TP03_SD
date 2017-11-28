@@ -88,16 +88,15 @@ public class Main {
 
         int num_args = args.length;
 
-        int num_hosts = 10;
+        int num_hosts = 5;
 
         if (num_args > 0) {
             num_hosts = Integer.parseInt(args[0]);
         }
 
         if (num_args > 1) {
-            SHOW_MSG = true;//Boolean.parseBoolean(args[1]);
+            SHOW_MSG = Boolean.parseBoolean(args[1]);
         }
-//        SHOW_MSG = true;
         startDevices(num_hosts);
 
 //        monte_carlo(1000000);
