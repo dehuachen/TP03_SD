@@ -32,15 +32,15 @@ public class Host extends Device {
         String[] xy = split[1].split(" ");
 
         String idx = split[0];
-        int x = Integer.parseInt(xy[0]);
-        int y = Integer.parseInt(xy[1]);
+        double x = Double.parseDouble(xy[0]);
+        double y = Double.parseDouble(xy[1]);
         int answer = 0;
 
         if (eval(new Point(x,y))) {
             answer = 1;
         }
 
-        String msg_out = idx + "," + answer;
+        String msg_out = ANSWER + "," + idx + "," + answer;
         sendMessage(master, msg_out);
 
         waiting.release();
@@ -50,6 +50,7 @@ public class Host extends Device {
     public void abstractRun() {
         while (true) {
             try {
+                sleep(100);
                 waiting.acquire();
                 sendMessage(master, formatMsg(self, TASK));
             } catch (InterruptedException e) {

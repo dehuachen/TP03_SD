@@ -40,7 +40,6 @@ public class Master extends Device{
 
     // print the approximation of pi
     private void print_pi() {
-
         int count = 0;
         for (int i = 0; i < answers.length; i++) {
             count += answers[i];
@@ -60,7 +59,7 @@ public class Master extends Device{
         Node node = findNodeRef(getNodeFromMsg(msg));
         String msg_out = "";
 
-        if (has_task) {
+        if (!has_task) {
             requested_nodes.add(node);
         } else {
             for (int i = 0; i < requested_nodes.size(); i++) {
@@ -121,7 +120,7 @@ public class Master extends Device{
 
     @Override
     public void abstractRun() {
-
+        generatePoints(1000);
     }
 
     public void generatePoints(int n) {

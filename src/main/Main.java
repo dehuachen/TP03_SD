@@ -13,24 +13,23 @@ public class Main {
 
     public static void startDevices(int num_hosts) {
 
+        Device[] ds = new Device[num_hosts];
+        ds[0] = new Master("localhost", Device.port_base);
 
         // create devices
         println("Creating hosts...");
         println("Number of hosts: " + num_hosts);
-        Device[] ds = new Device[num_hosts];
-        for (int i=0; i<ds.length; i++) {
+        for (int i=1; i<ds.length; i++) {
             println("Host "+ i + ": (localhost, " + (Device.port_base + i) + ")");
-            ds[i] = new Device("localhost", Device.port_base + i);
+            ds[i] = new Host("localhost", Device.port_base + i, ds[0].self);
         }
         println("Creation: done.");
 
         // connect to each other
         println("Connecting hosts...");
-        for (int i=0; i<ds.length; i++) {
+        for (int i=1; i<ds.length; i++) {
             Device.sleep(1000);
-            if (i != 0) {
-                ds[i].sendMessage("localhost", Device.port_base, Device.ADD+","+ds[i].self.hostname+","+ds[i].self.port);
-            }
+            ds[i].sendMessage(ds[0].self, Device.ADD+","+ds[i].self.hostname+","+ds[i].self.port);
         }
         Device.sleep(2000);
         for (int i = 0; i < ds.length; i++) {
@@ -89,19 +88,19 @@ public class Main {
 
         int num_args = args.length;
 
-        int num_hosts = 6;
+        int num_hosts = 10;
 
         if (num_args > 0) {
             num_hosts = Integer.parseInt(args[0]);
         }
 
         if (num_args > 1) {
-            SHOW_MSG = Boolean.parseBoolean(args[1]);
+            SHOW_MSG = true;//Boolean.parseBoolean(args[1]);
         }
+//        SHOW_MSG = true;
+        startDevices(num_hosts);
 
-//        startDevices(num_hosts);
-
-        monte_carlo(1000000);
+//        monte_carlo(1000000);
 
     }
 
