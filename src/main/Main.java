@@ -88,7 +88,7 @@ public class Main {
 
         int num_args = args.length;
 
-        int num_hosts = 5;
+        int num_hosts = 11;
 
         if (num_args > 0) {
             num_hosts = Integer.parseInt(args[0]);

@@ -50,7 +50,7 @@ public class Host extends Device {
     public void abstractRun() {
         while (true) {
             try {
-//                sleep(100);
+                sleep(100);
                 waiting.acquire();
                 sendMessage(master, formatMsg(self, TASK));
             } catch (InterruptedException e) {

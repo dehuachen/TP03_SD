@@ -6,6 +6,7 @@ import template.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Timer;
 
 /**
  * Created by chendehua on 2017/11/14.
@@ -49,6 +50,7 @@ public class Master extends Device{
         double approximations_pi = 4.0 * count / answers.length;
         System.out.println("\n============================");
         System.out.println("Approximations of pi: " + String.valueOf(approximations_pi));
+        System.out.println("Time: " + (System.currentTimeMillis() - start_time)/1000.0);
         System.out.println("============================\n");
 
         Scanner s = new Scanner(System.in);
@@ -133,7 +135,9 @@ public class Master extends Device{
         generatePoints(n);
     }
 
+    private long start_time;
     public void generatePoints(int n) {
+        start_time = System.currentTimeMillis();
         has_task = true;
         last_point_idx = 0;
 
